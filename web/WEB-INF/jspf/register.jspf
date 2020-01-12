@@ -1,0 +1,32 @@
+<%@ page pageEncoding="UTF-8" %>
+
+
+
+
+<div class="col-sm-12">
+    <h2>Regisztráció</h2>
+</div>
+
+<div class="col-sm-6">
+    <%
+        if(request.getParameter("btnReg") == null)
+        {
+    %>
+        <form name="register" class="form-horizontal" action="index.jsp?page=register" method="POST">
+            Felhasználónév <input type="text" name="username" class="form-control" required=""/>
+            Jelszó <input type="password" name="password" class="form-control" required=""/>
+            Teljes név <input type="text" name="fullname" class="form-control" required=""/>
+            <input type ="submit" name="btnReg" value="Regisztráció" class="btn btn-success"/>
+            <input type="reset" value="clear" class="btn btn-primary"/><br/>
+        </form>
+    <%
+        }
+        else
+        {
+            out.print("Ön regisztrációt kezdeményezett!");
+            userReg.userInsert();
+            out.print(userReg.getUzenet());
+        }
+    %>
+</div>
+

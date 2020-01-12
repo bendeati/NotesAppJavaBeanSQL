@@ -1,0 +1,41 @@
+<%@ page pageEncoding="UTF-8" %>
+<h2>Összes jegyzet megjelentése</h2>
+<% //out.print("Felhasználó: " + login.getId() + " " + login.getUsername()); %>
+<div class="col-md-10">
+    <table class="table table-hover">
+                <tr>
+                    <td>id</td><td>cim</td><td>tartalom</td><td>létrehozás</td>
+                    <td>Módosítva</td><td colspan="2">Művelet</td>
+                </tr>
+                <% 
+                    try 
+                    { 
+                        notes.allNotes(login.getId()); //a felhasználó id-jével hívom meg a metódust!
+                        ResultSet temp = notes.listaLeker(); //lsd. 1. sor import!
+                        while (temp.next())
+                        { 
+            %> 
+                            <tr> 
+                                <td><%out.print(temp.getInt("id"));%></td>
+                                <td><%out.print(temp.getString("title"));%></td>
+                                <td><%out.print(temp.getString("content"));%></td>
+                                <td><%out.print(temp.getDate("date1"));%></td>
+                                <td><%out.print(temp.getDate("date2"));%></td>
+                                <td><a href="modosit.jsp?modId=<%out.print(temp.getInt("id"));%>">
+                                        <button class="btn btn-success">Módosítom</button>
+                                </td>
+                                <td><a href="torles.jsp?modId=<%out.print(temp.getInt("id"));%>">
+                                        <button class="btn btn-success">Törlöm</button>
+                                </td>
+                            </tr>
+            <%          }
+                        
+                    }
+                    catch (Exception e) 
+                    { 
+                        out.print("Önnek nincs egy jegyzete sem!" + e);
+                        out.print(notes.getUzenet());
+                    } 
+                %>
+            </table>
+</div>

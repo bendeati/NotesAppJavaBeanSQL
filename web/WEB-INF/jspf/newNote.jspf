@@ -1,0 +1,28 @@
+<%-- any content can be specified here e.g.: --%>
+<%@ page pageEncoding="UTF-8" %>
+
+<div class="col-sm-12">
+    <h2>Új jegyzet létrehozása</h2>
+</div>
+
+<div class="col-sm-6">
+    <%
+        if(request.getParameter("btnNewNote") == null)
+        {
+    %>
+        <form name="register" class="form-horizontal" action="index.jsp?page=newNote" method="POST">
+            Cím <input type="text" name="title" class="form-control" required=""/>
+            Tartalom <textarea name="content" class="form-control" required=""/></textarea>
+            <input type ="submit" name="btnNewNote" value="Létrehozás" class="btn btn-success"/>
+            <input type="reset" value="clear" class="btn btn-primary"/><br/>
+        </form>
+    <%
+        }
+        else
+        {
+            out.print("Ön új jegyzetet szeretne létrehozni...");
+            notes.insertNote(login.getId());
+            out.print(notes.getUzenet());
+        }
+    %>
+</div>

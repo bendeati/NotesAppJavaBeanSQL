@@ -1,0 +1,40 @@
+<%-- any content can be specified here e.g.: --%>
+<%@ page pageEncoding="UTF-8" %>
+
+<%
+if(request.getParameter("btnLogin") == null)
+{
+
+%>
+
+    <div class="col-sm-12">
+        <h2>Belépés</h2>
+    </div>
+
+    <div class="col-sm-6">
+        <form name="login" class="form-horizontal" action="index.jsp?page=login" method="POST">
+            Felhasználónév <input type="text" name="username" class="form-control" required=""/>
+            Jelszó <input type="password" name="password" class="form-control" required=""/>
+            <input type ="submit" name="btnLogin" value="Belépés" class="btn btn-success"/>
+            <input type="reset" value="clear" class="btn btn-primary"/><br/>
+        </form>
+    </div>
+<% 
+}
+else
+{
+    session.setMaxInactiveInterval(1800);  // 30 minute time out
+    login.login("jdbc:mysql://localhost:3306/notes");
+    if(!login.isLoggedIn())
+    {
+        out.println("Hibás bejelentkezés, jelentkezzen be!");
+        out.println("<a href='index.jsp?page=login'>Megpróbálom újra...</A>");
+        out.println(dbKapcs.uzenet());
+    }
+    else
+    {
+      //sikerült a belépés
+      response.sendRedirect("index.jsp"); //ráfrissítek a menü miatt :P 
+    }
+}
+%>
