@@ -1,4 +1,7 @@
 # NotesAppJavaBeanSQL
+# JDK 8
+# TOMCAT 8
+# NETBEANS 8.2
 
 A feladat leírása a projekt mappában található.
 HIBÁK egyelőre:
