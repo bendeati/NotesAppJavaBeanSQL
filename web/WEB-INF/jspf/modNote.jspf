@@ -1,0 +1,53 @@
+<%-- any content can be specified here e.g.: --%>
+<%@ page pageEncoding="UTF-8" %>
+<div class="col-sm-12">
+    <h2>A kiválasztott jegyzet módosítása</h2>
+</div>
+
+<%
+        //az id átvétele
+        int modId = 0;
+        if(request.getParameter("modId") != null)
+        {
+            modId = Integer.parseInt(request.getParameter("modId"));
+            out.print("A módosítandó rekord id-je: " + modId);
+        } 
+        else 
+        {   //ez akkor lehet, ha önmagában hívjuk meg az állományt!
+            //az alábbi szöveget csak a teszteléskor érdemes meghagyni:
+            //out.print("Nincs kiválasztott rekord!");
+            //tesztelés után írjuk át erre a sorra, ami átirnyít:
+            response.sendRedirect("index.jsp");
+        }
+%>
+
+<%
+        if(request.getParameter("btnMod") != null)
+        {
+            //módosítani jöttem
+            notes.modosit(modId);
+            out.print("Sikeres módosítás");
+        }
+        else
+        {
+            //hívjuk meg a paraméteres metódust a Filmek.java-ból
+            notes.modAdatokListaz(modId);
+            ResultSet temp = notes.listaLeker(); //lsd. 1. sor import itt is!
+            temp.next();
+%>
+
+
+<div class="col-sm-6">
+    
+        <form name="register" class="form-horizontal" action="index.jsp?page=modNote" method="POST">
+            Cím <input type="text" name="title" class="form-control"  value="<%=temp.getString("title") %>" required=""/>
+            Tartalom <textarea name="content" class="form-control" required=""/><%=temp.getString("content") %></textarea>
+            <input type="hidden" name="modId" value="<%=modId%>">
+            <input type ="submit" name="btnMod" value="Módosítás" class="btn btn-success"/>
+            <input type="reset" value="clear" class="btn btn-primary"/><br/>
+        </form>
+    <%
+        }
+        
+    %>
+</div>

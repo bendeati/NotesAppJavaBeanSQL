@@ -1,4 +1,4 @@
-<%@ page contentType="text/html" pageEncoding="UTF-8" language="java" import="java.sql.*"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" import="java.sql.*"%>
 
 <%@ page import = "bab.Kapcsolat"%>
 <%@ page import = "bab.Register" %>
@@ -48,6 +48,12 @@
                                 <% break;
                             case "newNote": %>
                                 <%@include file="WEB-INF/jspf/newNote.jspf" %>
+                                <% break;
+                            case "modNote": %>
+                                <%@include file="WEB-INF/jspf/modNote.jspf" %>
+                                <% break;
+                            case "delNote": %>
+                                <%@include file="WEB-INF/jspf/delNote.jspf" %>
                                 <% break;
                             }
                         }

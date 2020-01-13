@@ -1,0 +1,51 @@
+<%-- any content can be specified here e.g.: --%>
+<%@ page pageEncoding="UTF-8" %>
+
+    <%
+        //az id átvétele
+        int Id = 0;
+        if(request.getParameter("modId") != null)
+        {
+            Id = Integer.parseInt(request.getParameter("modId"));
+            out.print("A törlendő rekord id-je: " + Id);
+        } 
+        else 
+        {   
+            out.print("Nincs kiválasztott rekord!");
+        }
+    %>
+        <div class="container"><div>
+            <h1>Jegyzet törlése</h1>
+        </div>
+        <div class="col-md-6">
+            <form name="torles" class="form-row" method="POST" action="">
+                <div class="form-group col-md-12">
+                    Valóban törölni szeretné a jegyzetet? (<%=Id%>)
+                </div>
+                <input type="hidden" name="modId" value="<%=Id%>">
+                <div class="form-group col-md-12">
+                    <input type="submit" name="btnDel" value="IGEN" class="btn btn-success">
+                    
+                </div>
+            </form>
+                <a href="index.jsp?page=allNotes"><button name="nemGomb" class="btn btn-warning">NEM</button></a>
+        </div>
+        <div class="col-md-12">
+        <%
+          if(request.getParameter("btnDel") != null)
+            {
+                if(notes.torles(Id))
+                {
+                    out.print("Töröltem...");
+                    notes.torles(Id);
+                }
+                else
+                {
+                    out.print("Nem oké a törlés...");
+                }
+            } 
+           
+          
+        %>
+            </div>
+        </div>

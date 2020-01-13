@@ -21,10 +21,10 @@
                                 <td><%out.print(temp.getString("content"));%></td>
                                 <td><%out.print(temp.getDate("date1"));%></td>
                                 <td><%out.print(temp.getDate("date2"));%></td>
-                                <td><a href="modosit.jsp?modId=<%out.print(temp.getInt("id"));%>">
+                                <td><a href="index.jsp?page=modNote&modId=<%out.print(temp.getInt("id"));%>">
                                         <button class="btn btn-success">Módosítom</button>
                                 </td>
-                                <td><a href="torles.jsp?modId=<%out.print(temp.getInt("id"));%>">
+                                <td><a href="index.jsp?page=delNote&modId=<%out.print(temp.getInt("id"));%>">
                                         <button class="btn btn-success">Törlöm</button>
                                 </td>
                             </tr>

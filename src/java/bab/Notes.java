@@ -117,9 +117,9 @@ public class Notes {
         { 
             if(kapcs.connOK())
             {
-                DateFormat f = new SimpleDateFormat("yyyy-MM-dd");
-                Date datum = new Date();
-                String modDatum = f.format(datum);
+                //DateFormat f = new SimpleDateFormat("yyyy-MM-dd");
+                //Date datum = new Date();
+                String modDatum = currentDate();
                 String query = "INSERT INTO jegyzet (title,content,userID,date1,date2) values('"
                     +title+"','"+content+"',"+userID+",'"+ modDatum +"','"+modDatum+"')";
                 //létrehozás és módosítás dátuma a létrehozáskor megegyezik...
@@ -135,6 +135,62 @@ public class Notes {
         {
             uzenet = "Sikertelen adatrögzítés!" + e.getMessage();
         }
+    }
+    
+    public void modAdatokListaz(int modId)
+    {
+        try 
+        {
+            st = kapcs.getStm();
+            rs = st.executeQuery("SELECT * FROM jegyzet WHERE id="+modId);
+            
+        } 
+        catch (SQLException e) 
+        {
+            System.out.println(e);
+        }
+        
+    }
+    
+    public void modosit(int modId)
+    {
+        
+        try 
+        { 
+            String query = "UPDATE jegyzet SET "
+                    + "title = '"+title+"',"
+                    + "content = '"+content+"',"
+                    + "date2 = '"+currentDate()+"' WHERE id="+modId;
+            st.executeUpdate(query); 
+            System.out.println("A módosítás sikeres!");
+        }
+        catch (SQLException e)
+        {
+            System.out.println("Hibás rögzítés:" + e.getMessage());
+        }
+    }
+    
+    public boolean torles(int modId)
+    {
+        boolean siker = false;
+        try 
+        { 
+            String query = "DELETE FROM jegyzet WHERE id="+modId;
+            st.executeUpdate(query); 
+            siker = true;
+        }
+        catch (SQLException e)
+        {
+            System.out.println("Hiba a mátrixban:" + e.getMessage());
+        }
+        return siker;
+    }
+    
+    private String currentDate()
+    {
+        DateFormat f = new SimpleDateFormat("yyyy-MM-dd");
+        Date datum = new Date();
+        return f.format(datum);
     }
 
 }
